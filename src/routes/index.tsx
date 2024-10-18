@@ -12,7 +12,7 @@ function Home():JSX.Element {
           This demo measures how long a request takes to save a string on the European Subnet.
 
           <div>
-            Here you can find the basic source code for the frontend and backend. <a href="https://github.com/samlinux-development/ic-solidjs" target="_blank">https://github.com/samlinux-development/ic-solidjs</a>
+            Here you can find the basic source code for the frontend and backend. <a href="https://github.com/samlinux-development/ic-performance" target="_blank">https://github.com/samlinux-development/ic-performance</a>
           </div>
           
           

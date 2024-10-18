@@ -8,6 +8,8 @@ This demo measures the time it takes to save a string on a specified subnet. In 
 
 If you’d like to test the performance of the Internet Computer on a different subnet, you can use this demo to deploy the project to the subnet of your choice.
 
+A running example for the European Subnet could be found [here - https://hengx-riaaa-aaaas-ajw5a-cai.icp0.io](https://hengx-riaaa-aaaas-ajw5a-cai.icp0.io).
+
 
 Check the functions with the CLI cammand below:
 ```bash
