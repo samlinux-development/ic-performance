@@ -1,7 +1,7 @@
 import { JSX } from "solid-js";
 
 import Store from "../components/Store.jsx";
-import Read from "../components/Read.jsx";
+import AllMessages from "../components/AllMessages.jsx";
 
 function Home():JSX.Element {
 
@@ -9,7 +9,7 @@ function Home():JSX.Element {
     <>
       <div>
         <div class="hint">
-          This demo measures how long a request takes to save a string on the European Subnet.
+          This demo measures how long a request takes to save a message on the European Subnet.
 
           <div>
             Here you can find the basic source code for the frontend and backend. <a href="https://github.com/samlinux-development/ic-performance" target="_blank">https://github.com/samlinux-development/ic-performance</a>
@@ -23,7 +23,7 @@ function Home():JSX.Element {
         </div>
 
         <div class="container-read">
-          <Read />
+          <AllMessages />
         </div>
       </div>
     </>

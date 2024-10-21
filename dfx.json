@@ -4,7 +4,6 @@
       "main": "backend/main.mo",
       "type": "motoko"
     },
-   
     "frontend": {
       "dependencies": [
         "backend"
@@ -18,7 +17,7 @@
   "defaults": {
     "build": {
       "args": "",
-      "packtool": ""
+      "packtool": "mops sources"
     }
   },
   "output_env_file": ".env",

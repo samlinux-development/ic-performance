@@ -1,4 +1,15 @@
+type storedMessage = 
+ record {
+   msg: text;
+   seconds: nat;
+ };
 service : {
-  getLastName: () -> (text) query;
-  sayHelloTo: (text) -> (text);
+  getAllMessages: () -> (vec record {
+                               nat;
+                               storedMessage;
+                             }) query;
+  getCountTest: () -> (nat) query;
+  getLastMessage: () -> (text) query;
+  storeMessage: (text) -> (text);
+  storeMessageWithTime: (text, nat) -> ();
 }

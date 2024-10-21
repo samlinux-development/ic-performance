@@ -4,7 +4,7 @@ import { backend } from "../declarations/backend/index.js"
 // Read component
 function Read():JSX.Element {
 
-  const [lastName, setLastName] = createSignal("");
+  const [lastMessage, setLastMessage] = createSignal("");
   const [isLoading, setIsLoading] = createSignal(false);
   
   const setLoadingStatus = (setLoading: (value: boolean) => void, status: boolean) => {
@@ -12,14 +12,14 @@ function Read():JSX.Element {
   };
 
   // get the result from the IC backend
-  const getLastName = (async () => {
+  const getLastMessage = (async () => {
     // start the loading spinner
     setLoadingStatus(setIsLoading, true);
 
     // get the result from the IC backend
-    const lastStoredName = await backend.getLastName();
+    const lastStoredMessage = await backend.getLastMessage();
     
-    setLastName(lastStoredName); 
+    setLastMessage(lastStoredMessage); 
     
     // stop the loading spinner
     setLoadingStatus(setIsLoading, false);
@@ -28,14 +28,15 @@ function Read():JSX.Element {
 
   return (
     <>
-      <h3>Call to public shared query func getLastName </h3>
-      <div> <input type="button" onClick={getLastName} value="To display the last stored value click the button"/></div>
+      <h3>Call to public shared query func getLastMessage </h3>
+      <div> <input type="button" onClick={getLastMessage} value="To display the last stored value click the button"/></div>
       <div>
         <Show when={isLoading()}>
           <span style="margin-left:10px;">Loading...</span>
         </Show>
+     
+        <div>{lastMessage()}</div>
 
-        <div>{lastName()}</div>
       </div>
 
     </>

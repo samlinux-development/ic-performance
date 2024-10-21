@@ -1,24 +1,24 @@
-import { JSX, createSignal, Show} from "solid-js";
+import { JSX, createSignal, Show } from "solid-js";
 import { action } from "@solidjs/router";
 import { backend } from "../declarations/backend/index.js"
 
 // Store component
 function Store():JSX.Element {
 
-  let inputField: HTMLInputElement | undefined;
   let formElement: HTMLFormElement | undefined;
 
-  const [resultName, setResultName] = createSignal("");
+  const [_, setResultMessage] = createSignal("");
   const [isLoading, setIsLoading] = createSignal(false);
   const [isExecuted, setIsExecuted] = createSignal(false);
-  
+
+
   const [isTimeTakenInSeconds, setTimeTakenInSeconds] = createSignal("");
   
   const setLoadingStatus = (setLoading: (value: boolean) => void, status: boolean) => {
     setLoading(status);
   };
 
-  const sayHelloTo = action (async (formData: FormData) => {
+  const storeMessage = action (async (formData: FormData) => {
 
     // Start the loading spinner
     setLoadingStatus(setIsLoading, true);
@@ -26,17 +26,14 @@ function Store():JSX.Element {
     const startTime = performance.now();
     setIsExecuted(false);
 
-    // make sure the resulteName is cleared
-    setResultName("");
-
     // get the name from the form
-    const name = formData.get("name") as string;
+    const message = formData.get("message") as string;
 
     // get the result from the IC backend
-    const icData = await backend.sayHelloTo(name); 
+    const icData = await backend.storeMessage(message); 
 
-    // send Signal for the resultName
-    setResultName(icData);
+    // send Signal for the setResultMessage
+    setResultMessage(icData);
 
     // Stop the loading spinner
     setLoadingStatus(setIsLoading, false);
@@ -49,24 +46,36 @@ function Store():JSX.Element {
 
     // clear the input fields of the form
     (formElement !== undefined)?formElement.reset():"";
+
+    // store result in background
+    updateArchive(icData, BigInt(Math.floor(timeTakenInSeconds * 1000)));
+
   });
+
+  const updateArchive = async (msg:string, seconds: bigint) => {
+    //console.log("updateArchive", msg, seconds);
+    backend.storeMessageWithTime(msg, seconds);
+  }
 
   return (
     <>
-      <h3>Call to public shared func sayHelloTo </h3>
+      <h3>Call to public shared func storeMessage</h3>
       
-      <form action={sayHelloTo} ref={formElement} method="post">
-        <label>
-          Say hello to:
-          <input type="text" name="name" ref={inputField}/>
-        </label>
-        <input type="submit" value="Click Me" disabled={isLoading()}/>
+      <form action={storeMessage} ref={formElement} method="post">
+        <div>
+          <div>
+            Update SmartContract with a message
+          </div>
+         
+          <textarea class="store-textarea" name="message"/>
+        
+        </div>
+        
+        <input type="submit" value="start update" disabled={isLoading()}/>
         <Show when={isLoading()}>
           <span style="margin-left:10px;">Loading...</span>
         </Show>
       </form>
-
-      <div>{resultName()}</div>
       
       <Show when={isExecuted()}>
         <div>The request takes {isTimeTakenInSeconds()} seconds!</div>
