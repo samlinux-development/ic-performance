@@ -8,7 +8,7 @@ import type { storedMessage } from "../declarations/backend/backend.did.js";
 function getAllMessages():JSX.Element {
 
   const [isLoading, setIsLoading] = createSignal(false);
-  const [messages, setMessages] = createSignal<{ msg: string; seconds: number }[]>([]);
+  const [messages, setMessages] = createSignal<{ msg: string; seconds: number, timestamp: number }[]>([]);
   
   const setLoadingStatus = (setLoading: (value: boolean) => void, status: boolean) => {
     setLoading(status);
@@ -23,12 +23,12 @@ function getAllMessages():JSX.Element {
     const a = [];
     
     for (const [_, message] of allStoredMessages) {
-      let obj: { msg: string; seconds: number } = { msg: message?.msg, seconds: Number(message?.seconds) / 1000 };
+      let obj: { msg: string; seconds: number, timestamp: number } = { msg: message?.msg, seconds: Number(message?.seconds) / 1000, timestamp: Number(message?.timestamp) };
       a.push(obj);
     }    
     a.sort((a, b) => b.seconds - a.seconds);
     setMessages(a);
-
+    
     // stop the loading spinner
     setLoadingStatus(setIsLoading, false);
     
@@ -48,15 +48,17 @@ function getAllMessages():JSX.Element {
             <table class="history-table">
               <thead>
                 <tr>
-                  <td>#</td>
+               
+                  <td>Time</td>
                   <td>Seconds</td>
                   <td>Message ({messages().length})</td>
                 </tr>
               </thead>
-              <For each={messages()}>{( msg , i) =>
+              <For each={messages()}>{( msg ) =>
                 <tbody>
                   <tr>
-                    <td> { i() + 1 }</td>
+                 
+                    <td>{ msg.timestamp !== 0 ? new Date(msg.timestamp).toLocaleString() : '' } </td>
                     <td> { msg.seconds } </td>
                     <td> { msg.msg } </td>
                   </tr>

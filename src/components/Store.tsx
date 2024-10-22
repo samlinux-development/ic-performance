@@ -48,13 +48,13 @@ function Store():JSX.Element {
     (formElement !== undefined)?formElement.reset():"";
 
     // store result in background
-    updateArchive(icData, BigInt(Math.floor(timeTakenInSeconds * 1000)));
+    updateArchive(icData, BigInt(Math.floor(timeTakenInSeconds * 1000)), BigInt(new Date().getTime()));
 
   });
 
-  const updateArchive = async (msg:string, seconds: bigint) => {
+  const updateArchive = async (msg:string, seconds: bigint, timestamp: bigint) => {
     //console.log("updateArchive", msg, seconds);
-    backend.storeMessageWithTime(msg, seconds);
+    backend.storeMessageWithTime(msg, seconds, timestamp);
   }
 
   return (

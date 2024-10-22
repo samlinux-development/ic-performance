@@ -80,8 +80,9 @@ button:focus-visible {
   padding: 0.3rem;
 }
 
-.history-table tbody td:nth-child(1){
-  width: 50px;
+.history-table tbody td:nth-child(1) {
+  width: 160px;
+  text-align: right;
 }
 .history-table tbody td:nth-child(2) {
   width: 75px;
@@ -125,5 +126,12 @@ button:focus-visible {
     font-size: 1em;
     width: 100%;
     box-sizing: border-box;
+  }
+
+  .hint, 
+  .container-store,
+  .container-read {
+    margin: 0 0 1em 0;
+    max-width: 100%;
   }
 }
