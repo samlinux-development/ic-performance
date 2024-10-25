@@ -26,7 +26,7 @@ function getAllMessages():JSX.Element {
       let obj: { msg: string; seconds: number, timestamp: number } = { msg: message?.msg, seconds: Number(message?.seconds) / 1000, timestamp: Number(message?.timestamp) };
       a.push(obj);
     }    
-    a.sort((a, b) => b.seconds - a.seconds);
+    a.sort((a, b) => b.timestamp - a.timestamp);
     setMessages(a);
     
     // stop the loading spinner
