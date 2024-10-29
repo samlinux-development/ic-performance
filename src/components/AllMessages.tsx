@@ -36,7 +36,7 @@ function getAllMessages():JSX.Element {
   );
   return (
     <>
-      <h3>Retrieve all messages, sorted by the slowest call first</h3>
+      <h3>Retrieve all messages, sorted by the latest call first</h3>
       <div> <input type="button" onClick={getAllMessages} value="get History"/></div>
       <div>
         <Show when={isLoading()}>
